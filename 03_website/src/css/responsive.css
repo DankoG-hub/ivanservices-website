@@ -1,0 +1,129 @@
+/* Keep media queries here so styles.css stays clean */
+
+@media (max-width: 920px){
+  .hero-inner{
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile nav */
+/* Mobile nav = full screen overlay */
+@media (max-width: 760px){
+
+  /* Burger -> X animation */
+  .nav-toggle .burger{
+    transition: background 0.15s ease;
+  }
+
+  .nav-toggle .burger::before,
+  .nav-toggle .burger::after{
+    transition: transform 0.18s ease, top 0.18s ease;
+  }
+
+  .nav-toggle.is-open .burger{
+    background: transparent;
+  }
+
+  .nav-toggle.is-open .burger::before{
+    top: 0;
+    transform: rotate(45deg);
+  }
+
+  .nav-toggle.is-open .burger::after{
+    top: 0;
+    transform: rotate(-45deg);
+  }
+
+  .nav-toggle{ 
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center; 
+    position: relative;
+    z-index: 1000;
+  }
+
+  /* Make header a positioning context */
+  .site-header{
+    position: sticky;
+  }
+
+  .nav{
+    position: fixed;
+    inset: 0;
+    height: 100vh;
+
+    background: rgba(5,10,7,0.92);
+    backdrop-filter: blur(14px);
+
+    padding: 88px 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    z-index: 999;
+    overflow-y: auto;
+
+    /* animation setup */
+    opacity: 0;
+    transform: translateY(-8px);
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+  }
+
+  .nav.is-open{
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .nav-list{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;              /* SPACE between items */
+    margin: 0;
+    padding: 0;
+  }
+
+   .nav-list li{
+    width: min(450px, 100%);    /* same width for all, capped */
+  }
+
+  .nav-link{
+    width: 100%;
+    padding: 18px 20px;     /* BIG tap area */
+    font-size: 20px;        /* bigger text */
+    font-weight: 600;
+    display: block;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    text-align: center;
+    transition: background 0.2s ease, transform 0.15s ease;
+  }
+
+  .nav-link:hover{
+    background: rgba(255,255,255,0.08);
+  }
+
+  .nav-link.is-active{
+    background: rgba(29,185,84,0.18);
+    border-color: rgba(29,185,84,0.35);
+  }
+
+  /* CTA stays at bottom like an app */
+  .nav .btn{
+    margin-top: auto;
+    height: 58px;
+    font-size: 18px;
+    border-radius: 20px;
+    font-weight: 700;
+  }
+}
+
+/* Scroll lock when nav is open */
+body.nav-open{
+  overflow: hidden;
+}
+
