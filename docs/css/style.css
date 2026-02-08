@@ -304,3 +304,296 @@ img{ max-width: 100%; display: block; }
   gap: 10px;
   flex-wrap: wrap;
 }
+
+
+/* ===== IVAN Services – Chat UI (Concept 2) ===== */
+:root{
+  --ivan-bg: #06110c;
+  --ivan-panel: #071b13;
+  --ivan-panel2: #0b231a;
+  --ivan-line: rgba(180, 255, 210, 0.12);
+  --ivan-text: rgba(255,255,255,0.92);
+  --ivan-muted: rgba(255,255,255,0.68);
+  --ivan-dim: rgba(255,255,255,0.48);
+  --ivan-accent: #2fa36b;     /* emerald */
+  --ivan-accent2: #a8e6c1;    /* mint highlight */
+  --ivan-shadow: 0 18px 45px rgba(0,0,0,0.45);
+  --ivan-radius: 16px;
+  --ivan-font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.ivan-chat{
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 9999;
+  font-family: var(--ivan-font);
+}
+
+.ivan-chat__body{
+  padding-bottom: 8px;
+}
+
+
+/* Launcher */
+.ivan-chat__launcher{
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  border: 1px solid var(--ivan-line);
+  background: radial-gradient(120% 120% at 30% 30%, rgba(47,163,107,0.25), rgba(7,27,19,1));
+  box-shadow: var(--ivan-shadow);
+  color: var(--ivan-text);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.ivan-chat__launcher:hover{
+  border-color: rgba(168,230,193,0.35);
+}
+
+.ivan-chat__launcher-icon{
+  font-size: 20px;
+}
+/* Hide launcher when chat is open */
+.ivan-chat.ivan-chat--open .ivan-chat__launcher{
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.95);
+}
+
+
+
+
+/* Panel (static for now; we’ll wire open/close with JS next) */
+.ivan-chat__panel{
+  display: none;
+  width: 360px;
+  height: 520px;
+  margin-bottom: 12px;
+  border-radius: var(--ivan-radius);
+  border: 1px solid rgba(0,0,0,0.10);
+  background: linear-gradient(
+  180deg,
+  #f4f8f5,
+  #e9f1ec
+);
+  box-shadow: 0 18px 45px rgba(0,0,0,0.22),
+    inset 0 0 0 1px rgba(47, 163, 107, 0.15);
+  overflow: hidden;
+
+  opacity: 0;
+  transform: translateY(12px) scale(0.98);
+  pointer-events: none;
+  transition: opacity 180ms ease, transform 220ms ease;
+}
+
+/* Show panel when open */
+.ivan-chat.ivan-chat--open .ivan-chat__panel{
+  display: block;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+
+/* Header */
+.ivan-chat__header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 14px;
+   background: linear-gradient(
+    180deg,
+    #133629,
+    #0e2a1f
+  );
+  border-bottom: 1px solid var(--ivan-line);
+}
+
+.ivan-chat__header-left{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ivan-chat__header-icon{
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: rgba(47,163,107,0.10);
+  border: 1px solid rgba(47,163,107,0.22);
+  font-size: 16px;
+}
+
+.ivan-chat__titles{ line-height: 1.1; }
+
+.ivan-chat__title{
+  font-weight: 700;
+  color: var(--ivan-text);
+  font-size: 14px;
+  letter-spacing: 0.2px;
+}
+
+.ivan-chat__subtitle{
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--ivan-muted);
+}
+
+.ivan-chat__shamrock{
+  color: var(--ivan-accent2);
+  text-shadow: 0 0 12px rgba(168,230,193,0.25);
+}
+
+.ivan-chat__close{
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  border: 1px solid var(--ivan-line);
+  background: rgba(255,255,255,0.03);
+  color: var(--ivan-muted);
+  cursor: pointer;
+}
+
+.ivan-chat__close:hover{
+  color: var(--ivan-text);
+  border-color: rgba(168,230,193,0.35);
+}
+
+/* Body */
+.ivan-chat__body{
+  height: calc(100% - 130px);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ivan-chat__welcome{
+  border: 1px solid rgba(47,163,107,0.18);
+  background:linear-gradient( 180deg, #133629, #0e2a1f );
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.ivan-chat__welcome-title{
+  font-weight: 700;
+  color: var(--ivan-text);
+  font-size: 13px;
+}
+
+.ivan-chat__welcome-text{
+  margin-top: 6px;
+  color: var(--ivan-muted);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+/* Messages */
+.ivan-chat__messages{
+  flex: 1;
+  overflow: auto;
+  padding-right: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* scrollbar (optional) */
+.ivan-chat__messages::-webkit-scrollbar{ width: 8px; }
+.ivan-chat__messages::-webkit-scrollbar-thumb{
+  background: rgba(255,255,255,0.08);
+  border-radius: 999px;
+}
+
+.ivan-chat__msg{ display: flex; flex-direction: column; gap: 5px; }
+
+.ivan-chat__msg--bot .ivan-chat__bubble{
+  background: rgba(11,35,26,0.82);
+  border: 1px solid rgba(180,255,210,0.12);
+  color: var(--ivan-text);
+  border-radius: 14px;
+  border-top-left-radius: 6px;
+  padding: 10px 11px;
+  max-width: 88%;
+}
+
+.ivan-chat__msg--user{
+  align-items: flex-end;
+}
+
+.ivan-chat__msg--user .ivan-chat__bubble{
+  background: rgba(47,163,107,0.16);
+  border: 1px solid rgba(47,163,107,0.25);
+  color: var(--ivan-text);
+  border-radius: 14px;
+  border-top-right-radius: 6px;
+  padding: 10px 11px;
+  max-width: 88%;
+}
+
+.ivan-chat__meta{
+  font-size: 11px;
+  color: var(--ivan-dim);
+}
+
+/* Input bar */
+.ivan-chat__inputbar{
+  height: 70px;
+  border-top: 1px solid rgba(0,0,0,0.08);
+  background: linear-gradient( 180deg, #133629, #0e2a1f );
+}
+
+.ivan-chat__input{
+   flex: 1;
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(0,0,0,0.12);
+  background: #ffffff;
+  color: #0e2a1f;
+  font-size: 14px;
+}
+
+.ivan-chat__input::placeholder{
+  color: rgba(14, 42, 31, 0.45);
+}
+
+
+
+
+.ivan-chat__send{
+  width: 40px;
+  height: 40px;
+  margin-left: 6px;
+  border-radius: 12px;
+  border: 1px solid rgba(47,163,107,0.28);
+  background: rgba(47,163,107,0.18);
+  color: var(--ivan-text);
+  cursor: pointer;
+}
+
+.ivan-chat__send:hover{
+  border-color: rgba(168,230,193,0.40);
+}
+
+.ivan-chat__stamp{
+  margin-top: 10px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.44);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ivan-chat__row{
+  height: 65px;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+}
