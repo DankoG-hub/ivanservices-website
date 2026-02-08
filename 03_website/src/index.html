@@ -115,6 +115,79 @@
       <p class="muted small">Built by Goluža Interface Studio.</p>
     </div>
   </footer>
+
+  <!-- IVAN Services – Chat UI -->
+  <div class="ivan-chat" id="ivanChat">
+    <div class="ivan-chat__wrap">
+      <section class="ivan-chat__panel" aria-label="IVAN Services chat panel">
+        <header class="ivan-chat__header">
+          <div class="ivan-chat__header-left">
+            <span class="ivan-chat__header-icon" aria-hidden="true">💬</span>
+            <div class="ivan-chat__titles">
+              <div class="ivan-chat__title">
+                Chat with IVAN Services <span class="ivan-chat__shamrock" aria-hidden="true">☘</span>
+              </div>
+              <div class="ivan-chat__subtitle">Irish Visa &amp; Naturalization</div>
+            </div>
+          </div>
+
+          <!-- IMPORTANT: type + data attr -->
+          <button class="ivan-chat__close" type="button" aria-label="Close chat" data-ivan-close>✕</button>
+        </header>
+
+        <div class="ivan-chat__body">
+          <div class="ivan-chat__welcome">
+            <div class="ivan-chat__welcome-title">Welcome to IVAN Services 🇮🇪</div>
+            <div class="ivan-chat__welcome-text">
+              Ask about visas, naturalization, immigration, or recruitment. We’ll guide you to the right next step.
+
+              <!-- OPTIONAL chips (your JS expects them, so include or remove chip code in JS) -->
+              <div class="ivan-chat__chips">
+                <button class="ivan-chat__chip" type="button" data-chip="Visa options">Visa options</button>
+                <button class="ivan-chat__chip" type="button" data-chip="Naturalization">Naturalization</button>
+                <button class="ivan-chat__chip" type="button" data-chip="Work permit">Work permit</button>
+                <button class="ivan-chat__chip" type="button" data-chip="Recruitment">Recruitment</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- IMPORTANT: id -->
+          <div class="ivan-chat__messages" id="ivanMessages">
+            <div class="ivan-chat__msg ivan-chat__msg--bot">
+              <div class="ivan-chat__bubble">
+                Hi! Tell me what you’re trying to do and your current status in Ireland (if applicable).
+              </div>
+              <div class="ivan-chat__meta">IVAN Services</div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="ivan-chat__inputbar">
+          <div class="ivan-chat__row">
+            <!-- IMPORTANT: id -->
+            <input class="ivan-chat__input" id="ivanInput" type="text" placeholder="Type your question…" />
+            <!-- IMPORTANT: id -->
+            <button class="ivan-chat__send" id="ivanSend" type="button" aria-label="Send message">➤</button>
+          </div>
+
+          <div class="ivan-chat__stamp">
+            <span aria-hidden="true">☘</span> IVAN Services • Immigration &amp; Recruitment
+          </div>
+        </footer>
+      </section>
+    </div>
+
+    <!-- IMPORTANT: id -->
+    <button class="ivan-chat__launcher" id="ivanLauncher" type="button" aria-label="Open chat">
+      <span class="ivan-chat__launcher-icon" aria-hidden="true">💬</span>
+    </button>
+  </div>
+
+  <!-- IMPORTANT: backdrop -->
+  <div class="ivan-chat__backdrop" id="ivanBackdrop" aria-hidden="true"></div>
+
+
+
 </body>
 
 </html>
